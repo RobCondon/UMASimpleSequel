@@ -119,7 +119,7 @@ public class MainActivity extends Activity {
      tabHost.getTabWidget().getChildAt(1).setOnClickListener(new OnClickListener() {
          public void onClick(View v) {
         	 
-        	 getLogin();
+        	getEmail();
         	 
          }
      });
@@ -164,6 +164,35 @@ public class MainActivity extends Activity {
      		
     
 	}
+    void getEmail(){
+
+        try {
+            PackageManager packTest = getPackageManager();	//Gets the package to check for app
+            Intent openMail = getPackageManager().getLaunchIntentForPackage("com.gmail.android.gm");  // this builds the intent with the app name.
+            List<ResolveInfo> activities = packTest.queryIntentActivities(openMail, 0);  // adds the list of results
+            Boolean isSafe = activities.size() > 0;  //is true if over one
+            if (isSafe) {
+                startActivity(openMail);  // if true then starts it
+            }
+        }
+        catch (Exception e) {
+
+            //Currently not working need to check it more
+            PackageManager packTest = getPackageManager();	//Gets the package to check for app
+            Intent openPlay = new Intent(Intent.ACTION_VIEW, Uri.parse("market://search?q=Gmail"));
+            List<ResolveInfo> activities = packTest.queryIntentActivities(openPlay, 0);
+            Boolean isSafe = activities.size() > 0;
+            if (isSafe) {
+                startActivity(openPlay);
+            }
+        }
+        finally {
+            Intent gWebIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://mail.google.com"));
+            startActivity(gWebIntent);
+        }
+
+    }
+
 	void getBlackBoard(){
 
 		try {
