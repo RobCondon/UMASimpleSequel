@@ -7,24 +7,30 @@ public class Section {
 
     private String Sec_Des;
     private int Sec_Num;
+    private String Sec_Location;
 
     public Section() {
         Sec_Des="";
         Sec_Num=0;
+        Sec_Location="";
     }
 
     /**
-     * Section Constructor
+     * This is the main constructor
      * @param sec_Des
      * @param sec_Num
+     * @param sec_Location
      */
-    public Section(String sec_Des, int sec_Num) {
+
+
+    public Section(String sec_Des, int sec_Num,String sec_Location) {
         Sec_Des = sec_Des;
         Sec_Num = sec_Num;
+        Sec_Location=sec_Location;
     }
 
     /**
-     * get Sec discription
+     * get Sec description
      * @return
      */
     public String getSec_Des() {
@@ -53,5 +59,21 @@ public class Section {
      */
     public void setSec_Num(int sec_Num) {
         Sec_Num = sec_Num;
+    }
+
+    /**
+     * get it
+     * @return
+     */
+    public String getSec_Location() {
+        return Sec_Location;
+    }
+
+    /**
+     * Set it
+     * @param sec_Location
+     */
+    public void setSec_Location(String sec_Location) {
+        Sec_Location = sec_Location;
     }
 }
