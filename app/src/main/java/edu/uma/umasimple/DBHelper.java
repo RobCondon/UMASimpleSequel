@@ -74,14 +74,9 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        if (dbIS()) {
-
-        } else {
-
-
             // creates the course table
             String CREATE_COURSE_TABLE = "CREATE TABLE " + TABLE_COURSE +
-                    "(" + COURSE_NUM + " PRIMARY KEY," + COURSE_NAME + " TEXT," +
+                    "(" + COURSE_NUM + "TEXT PRIMARY KEY," + COURSE_NAME + " TEXT," +
                     COURSE_DESC + " TEXT," + COURSE_SEMESTER + " TEXT" +
                     ")";
 
@@ -96,7 +91,7 @@ public class DBHelper extends SQLiteOpenHelper {
             //  Actually creates the tables
             db.execSQL(CREATE_COURSE_TABLE);
             db.execSQL(CREATE_SECTION_TABLE);
-        }
+    db.execSQL("Insert into Course (123)");
 
     }// end onCreate() function
 
@@ -120,22 +115,7 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }// end onUpgrade() function
 
-    public boolean dbIS() {
-        SQLiteDatabase dbIsReal = null;
 
-        try {
-            dbIsReal = SQLiteDatabase.openDatabase("/data/data/edu.uma.umasimple/databases/CourseSearch", null, SQLiteDatabase.OPEN_READONLY);
-
-        } catch (SQLiteException e) {
-            Log.d("TAG","DB Doesn't exist!");
-
-
-        }
-        if (dbIsReal != null) {
-            dbIsReal.close();
-        }
-        return dbIsReal != null;
-    }
 
     /**
      * This is how we load all the courses

@@ -5,7 +5,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -271,7 +273,9 @@ public class MainActivity extends Activity {
 	 */
 	void popList() {
 		DBHelper db = DBHelper.getInstance(this);
-		List<Course> cour = db.getAllCourses();
+
+		List<Course> cour;
+        cour = db.getAllCourses() ;
 		for (Course course : cour) {
 			courseList.add(course.getCourse_Num());
 		}
