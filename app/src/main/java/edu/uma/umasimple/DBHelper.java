@@ -2,10 +2,12 @@ package edu.uma.umasimple;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,25 +74,29 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        if (dbIS()) {
 
-        // creates the course table
-        String CREATE_COURSE_TABLE = "CREATE TABLE " + TABLE_COURSE +
-                "(" + COURSE_NUM + " PRIMARY KEY," + COURSE_NAME + " TEXT," +
-                COURSE_DESC + " TEXT," + COURSE_SEMESTER + " TEXT" +
-                ")";
+        } else {
 
-        // Creates the Section Table
-        String CREATE_SECTION_TABLE = "CREATE TABLE " + TABLE_SECTION +
-                "(" + SECTION_NUM + " TEXT REFERENCES "+ TABLE_COURSE + "," +
-                SECTION_SEC_NUM + " INT," + SECTION_DAY + " TEXT," + SECTION_TIME + " TEXT,"
-                + SECTION_LOCATION + " TEXT," + SECTION_SEC_DESC + " TEXT," + SECTION_INSTRUCTOR
-                + " TEXT" +
-                ")";
 
-        //  Actually creates the tables
-        db.execSQL(CREATE_COURSE_TABLE);
-        db.execSQL(CREATE_SECTION_TABLE);
+            // creates the course table
+            String CREATE_COURSE_TABLE = "CREATE TABLE " + TABLE_COURSE +
+                    "(" + COURSE_NUM + " PRIMARY KEY," + COURSE_NAME + " TEXT," +
+                    COURSE_DESC + " TEXT," + COURSE_SEMESTER + " TEXT" +
+                    ")";
 
+            // Creates the Section Table
+            String CREATE_SECTION_TABLE = "CREATE TABLE " + TABLE_SECTION +
+                    "(" + SECTION_NUM + " TEXT REFERENCES " + TABLE_COURSE + "," +
+                    SECTION_SEC_NUM + " INT," + SECTION_DAY + " TEXT," + SECTION_TIME + " TEXT,"
+                    + SECTION_LOCATION + " TEXT," + SECTION_SEC_DESC + " TEXT," + SECTION_INSTRUCTOR
+                    + " TEXT" +
+                    ")";
+
+            //  Actually creates the tables
+            db.execSQL(CREATE_COURSE_TABLE);
+            db.execSQL(CREATE_SECTION_TABLE);
+        }
 
     }// end onCreate() function
 
@@ -113,6 +119,23 @@ public class DBHelper extends SQLiteOpenHelper {
 
         }
     }// end onUpgrade() function
+
+    public boolean dbIS() {
+        SQLiteDatabase dbIsReal = null;
+
+        try {
+            dbIsReal = SQLiteDatabase.openDatabase("/data/data/edu.uma.umasimple/databases/CourseSearch", null, SQLiteDatabase.OPEN_READONLY);
+
+        } catch (SQLiteException e) {
+            Log.d("TAG","DB Doesn't exist!");
+
+
+        }
+        if (dbIsReal != null) {
+            dbIsReal.close();
+        }
+        return dbIsReal != null;
+    }
 
     /**
      * This is how we load all the courses
