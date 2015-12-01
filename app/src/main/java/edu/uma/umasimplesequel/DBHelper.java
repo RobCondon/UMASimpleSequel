@@ -1,13 +1,17 @@
-package edu.uma.umasimple;
+package edu.uma.umasimplesequel;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import java.sql.SQLException;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +21,9 @@ import java.util.List;
 public class DBHelper extends SQLiteOpenHelper {
 
 
+    private Context context;
     // Info for Database
-    private static final String DATABASE_NAME = "CourseSearch";
+    private static final String DATABASE_NAME = "CourseSearch.db";
     private static final int DATABASE_VERSION = 1;
 
     // To make it singleton
@@ -72,11 +77,22 @@ public class DBHelper extends SQLiteOpenHelper {
      * @param db
      */
 
-    @Override
+    //@Override
     public void onCreate(SQLiteDatabase db) {
+
+
+
+        try {
+            SQLiteDatabase dbFTemp= SQLiteDatabase.openOrCreateDatabase(DATABASE_NAME,null);
+            dbFTemp.close();
+            File dbF = context.getDatabasePath(DATABASE_NAME);
+            copDB(dbF);
+        }catch (Exception e) {
+            Log.d("TAG", ":" + e);
+        }finally {
             // creates the course table
             String CREATE_COURSE_TABLE = "CREATE TABLE " + TABLE_COURSE +
-                    "(" + COURSE_NUM + "TEXT PRIMARY KEY," + COURSE_NAME + " TEXT," +
+                    "(" + COURSE_NUM + " TEXT PRIMARY KEY," + COURSE_NAME + " TEXT," +
                     COURSE_DESC + " TEXT," + COURSE_SEMESTER + " TEXT" +
                     ")";
 
@@ -91,9 +107,15 @@ public class DBHelper extends SQLiteOpenHelper {
             //  Actually creates the tables
             db.execSQL(CREATE_COURSE_TABLE);
             db.execSQL(CREATE_SECTION_TABLE);
-    db.execSQL("Insert into Course (123)");
+            db.execSQL("INSERT INTO  COURSE (COURSE_NUM) VALUES(1)");
+        }
 
-    }// end onCreate() function
+
+
+
+
+
+        }// end onCreate() function
 
     /**
      * This will be useful when the Server is up and running
@@ -106,15 +128,33 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
         //Checks the version
-        if(oldVersion != newVersion) {
+        /*if(oldVersion != newVersion) {
 
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_COURSE);
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_SECTION);
             onCreate(db);
 
-        }
+        }*/
     }// end onUpgrade() function
 
+    /**
+     * This code is borrowed from https://gist.github.com/donaldlittlepie/1271795
+     * @param dbF
+     * @throws IOException
+     */
+
+    public void copDB(File dbF) throws IOException {
+        InputStream CopFROM = context.getAssets().open(DATABASE_NAME);
+        OutputStream CopTO = new FileOutputStream(dbF);
+
+        byte[] buffer = new byte[1024];
+        while (CopFROM.read(buffer) > 0) {
+            CopTO.write(buffer);
+        }
+        CopTO.flush();
+        CopTO.close();
+        CopFROM.close();
+    }
 
 
     /**

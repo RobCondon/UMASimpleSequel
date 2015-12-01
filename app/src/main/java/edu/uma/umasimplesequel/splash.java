@@ -1,4 +1,4 @@
-package edu.uma.umasimple;
+package edu.uma.umasimplesequel;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -7,10 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.ImageView;
-
-import edu.uma.umasimple.R;
 
 public class splash extends Activity{
 	ProgressDialog mProgress;

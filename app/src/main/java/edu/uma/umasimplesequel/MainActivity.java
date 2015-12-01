@@ -1,13 +1,10 @@
-package edu.uma.umasimple;
+package edu.uma.umasimplesequel;
 //Import Classes needed for program
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -33,7 +30,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.uma.umasimple.ExtendedCalendarView.OnDayClickListener;
+import edu.uma.umasimplesequel.ExtendedCalendarView.OnDayClickListener;
 
 //Declare Class MainActivity (Activity sub-class)
 public class MainActivity extends Activity {

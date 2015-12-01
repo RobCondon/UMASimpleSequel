@@ -23,7 +23,7 @@
     android:paddingLeft="4dp"
     android:paddingRight="4dp"
     android:paddingTop="15dp" >
-<edu.uma.umasimple.TVCustomFont
+<edu.uma.umasimplesequel.TVCustomFont
    font:TVCustomFont="fonts/OpenSans-Regular.ttf"
    android:id="@+id/textView1"
    android:layout_width="match_parent"
@@ -87,7 +87,7 @@
 		        android:visibility="visible" />
 
 
-			       <edu.uma.umasimple.TVCustomFont
+			       <edu.uma.umasimplesequel.TVCustomFont
     				   font:TVCustomFont="fonts/OpenSans-Regular.ttf"
 			           android:id="@+id/or"
 			           android:layout_width="fill_parent"
@@ -136,7 +136,7 @@
    android:gravity="bottom"
    android:layout_weight="5"
    >
-   <edu.uma.umasimple.BtnCustomFont
+   <edu.uma.umasimplesequel.BtnCustomFont
     font:BtnCustomFont="fonts/OpenSans-Regular.ttf"
     android:id="@+id/btnGetCourses"
     android:background = "@drawable/listview_selector"
