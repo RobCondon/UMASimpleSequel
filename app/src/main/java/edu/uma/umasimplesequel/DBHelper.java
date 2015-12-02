@@ -23,7 +23,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     private Context context;
     // Info for Database
-    private static final String DATABASE_NAME = "CourseSearch.db";
+    private static final String DATABASE_NAME = "courseSearch";
     private static final int DATABASE_VERSION = 1;
 
     // To make it singleton
@@ -56,11 +56,11 @@ public class DBHelper extends SQLiteOpenHelper {
      * @return
      */
     public static synchronized DBHelper getInstance(Context context) {
-        if (DB_INSTANCE == null) {
-            DB_INSTANCE = new DBHelper(context.getApplicationContext());
-        }
+       if (DB_INSTANCE == null) {
+           DB_INSTANCE = new DBHelper(context.getApplicationContext());
+       }
 
-        return DB_INSTANCE;
+       return DB_INSTANCE;
     }
 
     /**
@@ -68,7 +68,7 @@ public class DBHelper extends SQLiteOpenHelper {
      * @param context
      */
 
-    private DBHelper(Context context) {
+    public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -107,7 +107,7 @@ public class DBHelper extends SQLiteOpenHelper {
             //  Actually creates the tables
             db.execSQL(CREATE_COURSE_TABLE);
             db.execSQL(CREATE_SECTION_TABLE);
-            db.execSQL("INSERT INTO  COURSE (COURSE_NUM) VALUES(1)");
+
         }
 
 
@@ -168,7 +168,7 @@ public class DBHelper extends SQLiteOpenHelper {
         String COURSE_SELEC = "SELECT * FROM " + TABLE_COURSE;
         String SEC_SELEC = "SELECT * FROM " + TABLE_SECTION;
 
-        SQLiteDatabase dbCourse = getReadableDatabase();
+        SQLiteDatabase dbCourse = getWritableDatabase();
         Cursor curCourse = dbCourse.rawQuery(COURSE_SELEC, null);
 
 
