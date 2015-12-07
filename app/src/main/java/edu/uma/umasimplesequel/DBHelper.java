@@ -69,7 +69,7 @@ public class DBHelper extends SQLiteOpenHelper {
      * @param context
      */
 
-    public DBHelper(Context context) {
+    private DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
