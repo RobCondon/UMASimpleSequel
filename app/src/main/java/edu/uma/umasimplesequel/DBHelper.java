@@ -2,12 +2,11 @@ package edu.uma.umasimplesequel;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -56,7 +55,9 @@ public class DBHelper extends SQLiteOpenHelper {
      * @return
      */
     public static synchronized DBHelper getInstance(Context context) {
-       if (DB_INSTANCE == null) {
+
+        // if DB_Instance is null go ahead
+        if (DB_INSTANCE == null) {
            DB_INSTANCE = new DBHelper(context.getApplicationContext());
        }
 
@@ -81,15 +82,6 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
 
-
-        try {
-            SQLiteDatabase dbFTemp= SQLiteDatabase.openOrCreateDatabase(DATABASE_NAME,null);
-            dbFTemp.close();
-            File dbF = context.getDatabasePath(DATABASE_NAME);
-            copDB(dbF);
-        }catch (Exception e) {
-            Log.d("TAG", ":" + e);
-        }finally {
             // creates the course table
             String CREATE_COURSE_TABLE = "CREATE TABLE " + TABLE_COURSE +
                     "(" + COURSE_NUM + " TEXT PRIMARY KEY," + COURSE_NAME + " TEXT," +
@@ -108,7 +100,7 @@ public class DBHelper extends SQLiteOpenHelper {
             db.execSQL(CREATE_COURSE_TABLE);
             db.execSQL(CREATE_SECTION_TABLE);
 
-        }
+
 
 
 
@@ -128,13 +120,13 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
         //Checks the version
-        /*if(oldVersion != newVersion) {
+       if(oldVersion != newVersion) {
 
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_COURSE);
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_SECTION);
             onCreate(db);
 
-        }*/
+        }
     }// end onUpgrade() function
 
     /**
@@ -144,13 +136,17 @@ public class DBHelper extends SQLiteOpenHelper {
      */
 
     public void copDB(File dbF) throws IOException {
-        InputStream CopFROM = context.getAssets().open(DATABASE_NAME);
-        OutputStream CopTO = new FileOutputStream(dbF);
+        InputStream CopFROM = context.getAssets().open(DATABASE_NAME); // copy from
+        OutputStream CopTO = new FileOutputStream(dbF);                //copy to
 
-        byte[] buffer = new byte[1024];
+        byte[] buffer = new byte[1024];     //holds the info
+
+        // Copys it
         while (CopFROM.read(buffer) > 0) {
             CopTO.write(buffer);
         }
+
+        //Clean up
         CopTO.flush();
         CopTO.close();
         CopFROM.close();
@@ -163,8 +159,9 @@ public class DBHelper extends SQLiteOpenHelper {
      */
 
     public List<Course> getAllCourses() {
-        List<Course> Course =  new ArrayList<>();
+        List<Course> Course =  new ArrayList<>();  // to hold the courses
 
+        //Select queries
         String COURSE_SELEC = "SELECT * FROM " + TABLE_COURSE;
         String SEC_SELEC = "SELECT * FROM " + TABLE_SECTION;
 
