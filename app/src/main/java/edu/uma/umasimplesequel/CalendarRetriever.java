@@ -6,10 +6,9 @@
 // Last Updated By: Dustin Fairbanks
 
 // User Defined Package
-package edu.uma.umasimple;
+package edu.uma.umasimplesequel;
 
 // import classes needed for program 
-import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.net.Uri;
@@ -22,7 +21,6 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -36,7 +34,6 @@ import java.util.concurrent.TimeUnit;
 
 // import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 
