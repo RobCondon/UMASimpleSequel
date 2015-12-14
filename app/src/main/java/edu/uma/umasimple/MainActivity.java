@@ -1,14 +1,17 @@
-package edu.uma.umasimplesequel;
+package edu.uma.umasimple;
 //Import Classes needed for program
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.TextPaint;
 import android.text.style.TypefaceSpan;
@@ -18,6 +21,8 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CalendarView;
+import android.widget.CalendarView.OnDateChangeListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -30,7 +35,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.uma.umasimplesequel.ExtendedCalendarView.OnDayClickListener;
+import edu.uma.umasimple.R;
+import edu.uma.umasimple.ExtendedCalendarView.OnDayClickListener;
 
 //Declare Class MainActivity (Activity sub-class)
 public class MainActivity extends Activity {
@@ -264,21 +270,6 @@ public class MainActivity extends Activity {
 		 courseList.add("COL 100 Introduction to the College Experience");
 		 courseList.add("COL 214 Professionalism in the Workplace"); 
 	 }
-
-	/**
-	 * This is to populate the courselist section
-	 */
-	void popList() {
-		DBHelper db = DBHelper.getInstance(this);
-
-		List<Course> cour;
-        cour = db.getAllCourses() ;
-		for (Course course : cour) {
-			courseList.add(course.getCourse_Num());
-		}
-
-
-	}
 	void populateCourseListview()
 	{
 		currentView = 3;
@@ -288,9 +279,8 @@ public class MainActivity extends Activity {
         ListView coursesListView = (ListView)findViewById(R.id.courseList); //grab the listview from the layout
         courseList = new ArrayList<String>(); //instantiate courseList
         
-       //getList();  //for getting a list of courses and adding to the arrayList
-        popList(); // Lets try this it is dirty but I will fix it.
-
+        getList();  //for getting a list of courses and adding to the arrayList
+        
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(tthis,R.layout.lv_textview, courseList); //used a custom view to add styling
         
         coursesListView.setAdapter(arrayAdapter); //apply the adapter to the ListView
