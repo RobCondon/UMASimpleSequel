@@ -1,4 +1,4 @@
-package edu.uma.umasimplesequel;
+package edu.uma.umasimple;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -184,7 +184,7 @@ public class CalendarAdapter extends BaseAdapter{
     	dayList.clear();
     	
     	int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH)+7;
-        int firstDay = cal.get(Calendar.DAY_OF_WEEK);
+        int firstDay = (int)cal.get(Calendar.DAY_OF_WEEK);
         int year = cal.get(Calendar.YEAR);
         int month = cal.get(Calendar.MONTH);
         TimeZone tz = TimeZone.getDefault();
