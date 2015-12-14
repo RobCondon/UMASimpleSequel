@@ -1,4 +1,4 @@
-package edu.uma.umasimple;
+package edu.uma.umasimplesequel;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

@@ -1,4 +1,4 @@
-package edu.uma.umasimple;
+package edu.uma.umasimplesequel;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

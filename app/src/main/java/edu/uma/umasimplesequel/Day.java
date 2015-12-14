@@ -1,4 +1,4 @@
-package edu.uma.umasimple;
+package edu.uma.umasimplesequel;
 
 import java.util.ArrayList;
 import java.util.Calendar;
