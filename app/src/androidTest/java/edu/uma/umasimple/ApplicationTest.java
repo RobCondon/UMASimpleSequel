@@ -1,4 +1,4 @@
-package edu.uma.umasimplesequel;
+package edu.uma.umasimple;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
