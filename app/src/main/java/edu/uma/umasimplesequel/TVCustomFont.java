@@ -1,4 +1,4 @@
-package edu.uma.umasimple;
+package edu.uma.umasimplesequel;
 
 import android.content.Context;
 import android.content.res.TypedArray;
