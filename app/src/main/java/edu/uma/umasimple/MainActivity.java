@@ -6,8 +6,11 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spannable;
@@ -32,6 +35,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -106,10 +110,16 @@ public class MainActivity extends Activity {
         	 getCourseSelectForm();
          }
      });
+     tabHost.getTabWidget().getChildAt(2).setOnClickListener(new OnClickListener() {
+        public void onClick(View v) {
+			getBlackBoard();
+
+		}
+     });
      tabHost.getTabWidget().getChildAt(1).setOnClickListener(new OnClickListener() {
          public void onClick(View v) {
         	 
-        	 getLogin();
+        	getEmail();
         	 
          }
      });
@@ -153,6 +163,64 @@ public class MainActivity extends Activity {
      	
      		
     
+	}
+    void getEmail(){
+
+        try {
+            PackageManager packTest = getPackageManager();	//Gets the package to check for app
+            Intent openMail = getPackageManager().getLaunchIntentForPackage("com.gmail.android.gm");  // this builds the intent with the app name.
+            List<ResolveInfo> activities = packTest.queryIntentActivities(openMail, 0);  // adds the list of results
+            Boolean isSafe = activities.size() > 0;  //is true if over one
+            if (isSafe) {
+                startActivity(openMail);  // if true then starts it
+            }
+        }
+        catch (Exception e) {
+
+            //Currently not working need to check it more
+            PackageManager packTest = getPackageManager();	//Gets the package to check for app
+            Intent openPlay = new Intent(Intent.ACTION_VIEW, Uri.parse("market://search?q=Gmail"));
+            List<ResolveInfo> activities = packTest.queryIntentActivities(openPlay, 0);
+            Boolean isSafe = activities.size() > 0;
+            if (isSafe) {
+                startActivity(openPlay);
+            }
+        }
+        finally {
+            Intent gWebIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://mail.google.com"));
+            startActivity(gWebIntent);
+        }
+
+    }
+
+	void getBlackBoard(){
+
+		try {
+			PackageManager packTest = getPackageManager();	//Gets the package to check for app
+			Intent openBlack = getPackageManager().getLaunchIntentForPackage("com.blackboard.android");  // this builds the intent with the app name.
+			List<ResolveInfo> activities = packTest.queryIntentActivities(openBlack, 0);  // adds the list of results
+			Boolean isSafe = activities.size() > 0;  //is true if over one
+			if (isSafe) {
+				startActivity(openBlack);  // if true then starts it
+			}
+		}
+		catch (Exception e) {
+
+		//Currently not working need to check it more
+            PackageManager packTest = getPackageManager();	//Gets the package to check for app
+			Intent openPlay = new Intent(Intent.ACTION_VIEW, Uri.parse("market://search?q=Blackboard"));
+			List<ResolveInfo> activities = packTest.queryIntentActivities(openPlay, 0);
+			Boolean isSafe = activities.size() > 0;
+			if (isSafe) {
+				startActivity(openPlay);
+			}
+		}
+        finally {
+            Intent bbWebIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.courses.maine.edu/webapps/portal/execute/tabs/tabAction?tab_tab_group_id=_1_1"));
+            startActivity(bbWebIntent);
+		}
+
+
 	}
 	void getLogin() 
 	{
