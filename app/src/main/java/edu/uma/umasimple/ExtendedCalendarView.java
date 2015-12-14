@@ -1,4 +1,4 @@
-package edu.uma.umasimplesequel;
+package edu.uma.umasimple;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
+import edu.uma.umasimple.R;
 
 public class ExtendedCalendarView extends RelativeLayout implements OnItemClickListener,
 	OnClickListener{
@@ -41,7 +42,7 @@ public class ExtendedCalendarView extends RelativeLayout implements OnItemClickL
 	private static final int SWIPE_THRESHOLD_VELOCITY = 200;
 	
 	public interface OnDayClickListener{
-		void onDayClicked(AdapterView<?> adapter, View view, int position, long id, Day day);
+		public void onDayClicked(AdapterView<?> adapter, View view, int position, long id, Day day);
 	}
 
 	public ExtendedCalendarView(Context context) {
